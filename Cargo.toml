@@ -1,9 +1,9 @@
 [package]
 name = "join_to_string"
-version = "0.1.0"
+version = "0.1.1"
 
 authors = ["Aleksey Kladov <aleksey.kladov@gmail.com>"]
-repository = "https://github.com/matklad/typed_key"
+repository = "https://github.com/matklad/join_to_string"
 license = "MIT OR Apache-2.0"
 
 categories = [ "rust-patterns" ]
