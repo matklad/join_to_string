@@ -1,16 +1,22 @@
 # join
 
-[![Build Status](https://travis-ci.org/matklad/join.svg?branch=master)](https://travis-ci.org/matklad/join)
-[![Crates.io](https://img.shields.io/crates/v/join.svg)](https://crates.io/crates/join)
-[![API reference](https://docs.rs/join/badge.svg)](https://docs.rs/join/)
+[![Build Status](https://travis-ci.org/matklad/join_to_string.svg?branch=master)](https://travis-ci.org/matklad/join_to_string)
+[![Crates.io](https://img.shields.io/crates/v/join_to_string.svg)](https://crates.io/crates/join_to_string)
+[![API reference](https://docs.rs/join_to_string/badge.svg)](https://docs.rs/join_to_string/)
 
 Join a list of items to string:
 
 ```rust
-let mut buf = String::new();
-join(iterable)
-    .sep(", ")
-    .preifx("(")
-    .suffix(")")
-    .to_buf(&mut buf); // .to_string()
+extern crate join_to_string;
+use join_to_string::join;
+
+fn main() {
+    let mut buf = String::new();
+    join([1, 2, 3].iter())
+        .separator(", ")
+        .prefix("(")
+        .suffix(")")
+        .to_buf(&mut buf); // .to_string()
+    assert_eq!(buf, "(1, 2, 3)");
+}
 ```
