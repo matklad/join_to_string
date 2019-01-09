@@ -46,6 +46,19 @@ where
     I: Iterator,
     I::Item: fmt::Display,
 {
+    pub fn to_fmt(self, fmt: &mut fmt::Formatter) -> fmt::Result {
+        fmt.write_str(self.prefix)?;
+        let mut first = true;
+        for item in self.items {
+            if !first {
+                fmt.write_str(self.sep)?;
+            }
+            first = false;
+            fmt::Display::fmt(&item, fmt)?;
+        }
+        fmt.write_str(self.suffix)?;
+        Ok(())
+    }
     pub fn to_buf(self, buf: &mut String) {
         buf.push_str(self.prefix);
         let mut first = true;
