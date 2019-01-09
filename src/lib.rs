@@ -25,11 +25,11 @@ pub struct JoinBuilder<'a, I> {
 impl<'a, I> JoinBuilder<'a, I> {
     /// Set the prefix.
     pub fn prefix(self, prefix: &'a str) -> Self {
-        JoinBuilder { prefix, .. self }
+        JoinBuilder { prefix, ..self }
     }
     /// Set the suffix.
     pub fn suffix(self, suffix: &'a str) -> Self {
-        JoinBuilder { suffix, .. self }
+        JoinBuilder { suffix, ..self }
     }
     /// Set both suffix and prefix.
     pub fn surround_with(self, prefix: &'a str, suffix: &'a str) -> Self {
@@ -37,14 +37,14 @@ impl<'a, I> JoinBuilder<'a, I> {
     }
     // Set
     pub fn separator(self, sep: &'a str) -> Self {
-        JoinBuilder { sep, .. self }
+        JoinBuilder { sep, ..self }
     }
 }
 
 impl<'a, I> JoinBuilder<'a, I>
 where
-  I: Iterator,
-  I::Item: fmt::Display
+    I: Iterator,
+    I::Item: fmt::Display,
 {
     pub fn to_buf(self, buf: &mut String) {
         buf.push_str(self.prefix);
@@ -60,10 +60,7 @@ where
     }
 
     pub fn to_string(self) -> String {
-        let cap =
-            self.prefix.len()
-            + self.suffix.len()
-            + self.items.size_hint().0 * self.sep.len();
+        let cap = self.prefix.len() + self.suffix.len() + self.items.size_hint().0 * self.sep.len();
         let mut buf = String::with_capacity(cap);
         self.to_buf(&mut buf);
         buf
