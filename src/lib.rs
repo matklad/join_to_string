@@ -44,7 +44,7 @@ impl<'a, I> JoinBuilder<'a, I> {
 impl<'a, I> JoinBuilder<'a, I>
 where
   I: Iterator,
-  I::Item: fmt::Display
+  I::Item: ToBuf
 {
     pub fn to_buf(self, buf: &mut String) {
         buf.push_str(self.prefix);
@@ -54,7 +54,7 @@ where
                 buf.push_str(self.sep);
             }
             first = false;
-            write!(buf, "{}", item).unwrap();
+            item.to_buf(buf);
         }
         buf.push_str(self.suffix);
     }
@@ -67,5 +67,16 @@ where
         let mut buf = String::with_capacity(cap);
         self.to_buf(&mut buf);
         buf
+    }
+}
+
+pub trait ToBuf {
+    fn to_buf(&self, buf: &mut String);
+}
+
+impl<T: fmt::Display> ToBuf for T {
+    fn to_buf(&self, buf: &mut String) {
+        write!(buf, "{}", self)
+            .unwrap()
     }
 }
